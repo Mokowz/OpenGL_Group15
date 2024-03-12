@@ -1,4 +1,3 @@
-# Ronny Mokaya
 import pygame
 from pygame.locals import *
 from OpenGL.GL import *
@@ -29,7 +28,7 @@ def boundary_fill(x, y, fill_color, boundary_color):
     current_color_rgb = (current_color[0], current_color[1], current_color[2])
 
     if current_color_rgb != fill_color and current_color_rgb != boundary_color:
-        glColor3f(*fill_color)  # Set fill color to green
+        glColor3f(*boundary_color)  # Set boundary color to cyan
         glBegin(GL_POINTS)
         glVertex2i(x, y)
         glEnd()
@@ -48,11 +47,11 @@ def main():
     glClearColor(0.0, 0.0, 0.0, 1.0)
     glClear(GL_COLOR_BUFFER_BIT)
 
-    fill_color = (0.0, 1.0, 1.0)  # Cyan color
+    fill_color = (0.0, 1.0, 0.0)  # Green color
     draw_ellipse(-2, 2, 1, 1, fill_color)
 
-    # Boundary fill the ellipse with green color
-    boundary_fill(-2, 2, (0.0, 0.0, 1.0), fill_color)
+    # Boundary fill the ellipse with cyan color
+    boundary_fill(-2, 2, fill_color, (0.0, 1.0, 1.0))
 
     pygame.display.flip()
 
