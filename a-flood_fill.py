@@ -5,7 +5,8 @@ from OpenGL.GLU import *
 import math
 import numpy as np
 
-def draw_ellipse(center_x, center_y, a, b):
+def draw_ellipse(center_x, center_y, a, b, fill_color):
+    glColor3f(*fill_color)
     glBegin(GL_POLYGON)
     for theta in range(0, 360, 1):
         x = center_x + a * math.cos(math.radians(theta))
@@ -37,24 +38,15 @@ def main():
     display = (800, 600)
     pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
 
-    # Set up orthographic projection
-    glMatrixMode(GL_PROJECTION)
-    glLoadIdentity()
     gluOrtho2D(-10, 10, -10, 10)
-    glMatrixMode(GL_MODELVIEW)
 
     glClearColor(0.0, 0.0, 0.0, 1.0)
     glClear(GL_COLOR_BUFFER_BIT)
 
-    glColor3f(1.0, 1.0, 1.0)
-    draw_ellipse(-2, 2, 6, 5)
+    fill_color = np.array([0.0, 1.0, 1.0])  # Cyan color
+    draw_ellipse(-2, 2, 6, 5, fill_color)
 
     pygame.display.flip()
-
-    # Replace white color with cyan
-    old_color = np.array([1.0, 1.0, 1.0])
-    new_color = np.array([0.0, 1.0, 1.0])
-    flood_fill(0, 0, old_color, new_color)
 
     while True:
         for event in pygame.event.get():
